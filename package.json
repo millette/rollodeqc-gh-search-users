@@ -1,7 +1,7 @@
 {
   "name": "rollodeqc-gh-search-users",
   "version": "0.1.1",
-  "description": "RollodeQc module to search GitHub users.",
+  "description": "RoLLodeQc module to search GitHub users.",
   "license": "AGPL-3.0",
   "repository": "millette/rollodeqc-gh-search-users",
   "author": {
@@ -13,7 +13,7 @@
     "node": ">=4.3.1"
   },
   "scripts": {
-    "test": "standard && ava"
+    "test": "standard && nyc ava"
   },
   "files": [
     "index.js"
@@ -39,6 +39,7 @@
   "devDependencies": {
     "ava": "^0.12.0",
     "babel-eslint": "^6.0.0",
+    "nyc": "^6.1.1",
     "standard": "^6.0.8"
   },
   "standard": {
