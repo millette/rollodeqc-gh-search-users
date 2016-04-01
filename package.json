@@ -1,10 +1,9 @@
 {
   "name": "rollodeqc-gh-search-users",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "RollodeQc module to search GitHub users.",
   "license": "AGPL-3.0",
   "repository": "millette/rollodeqc-gh-search-users",
-  "readme": "readme.md",
   "author": {
     "name": "Robin Millette",
     "email": "robin@millette.info",
@@ -35,7 +34,7 @@
     "lodash.omitby": "^4.2.1",
     "lodash.partial": "^4.1.2",
     "lodash.uniq": "^4.2.0",
-    "rollodeqc-gh-utils": "^0.1.0"
+    "rollodeqc-gh-utils": "^0.1.1"
   },
   "devDependencies": {
     "ava": "^0.12.0",
