@@ -1,5 +1,5 @@
 /*
-RollodeQc module to search GitHub users.
+RoLLodeQc module to search GitHub users.
 
 Copyright 2016 Robin Millette <http://robin.millette.info/>
 
@@ -86,7 +86,7 @@ const notQuery = function (query) {
   return query
 }
 
-const rangeQuery = function (field, query) { // 'created'
+const rangeQuery = function (field, query) {
   if (!query.o[field]) { return query }
   const str = field === 'created'
     ? '>=2016-03-25; <=2016-03-30; 2016-03-25..2016-03-30'
