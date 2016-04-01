@@ -1,9 +1,10 @@
 {
-  "name": "gh-search-users",
-  "version": "0.0.1",
-  "description": "Search users on GitHub",
-  "license": "MIT",
-  "repository": "https://gitlab.com/millette/gh-search-users",
+  "name": "rollodeqc-gh-search-users",
+  "version": "0.1.0",
+  "description": "RollodeQc module to search GitHub users.",
+  "license": "AGPL-3.0",
+  "repository": "millette/rollodeqc-gh-search-users",
+  "readme": "readme.md",
   "author": {
     "name": "Robin Millette",
     "email": "robin@millette.info",
@@ -19,6 +20,7 @@
     "index.js"
   ],
   "keywords": [
+    "rollodeqc",
     "github",
     "gh",
     "search",
@@ -27,14 +29,13 @@
     "info"
   ],
   "dependencies": {
-    "gh-got": "^2.4.0",
     "lodash.deburr": "^4.0.0",
     "lodash.flatten": "^4.1.0",
     "lodash.flow": "^3.2.1",
     "lodash.omitby": "^4.2.1",
-    "lodash.pick": "^4.1.0",
-    "lodash.pickby": "^4.2.1",
-    "lodash.uniq": "^4.2.0"
+    "lodash.partial": "^4.1.2",
+    "lodash.uniq": "^4.2.0",
+    "rollodeqc-gh-utils": "^0.1.0"
   },
   "devDependencies": {
     "ava": "^0.12.0",

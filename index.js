@@ -1,46 +1,57 @@
+/*
+RollodeQc module to search GitHub users.
+
+Copyright 2016 Robin Millette <http://robin.millette.info/>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the
+[GNU Affero General Public License](LICENSE.md)
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 'use strict'
 
 // core
 const qs = require('querystring')
 
 // npm
-const ghGot = require('gh-got')
 const flow = require('lodash.flow')
 const omitBy = require('lodash.omitby')
-const pickBy = require('lodash.pickby')
 const deburr = require('lodash.deburr')
 const flatten = require('lodash.flatten')
 const uniq = require('lodash.uniq')
+const partial = require('lodash.partial')
+
+// own
+const got = require('rollodeqc-gh-utils').got
 
 // data
 const packageJson = require('./package.json')
 const userAgent = [packageJson.repository, packageJson.version].join(' v')
 
-const headersPicker = (value, key) =>
-  !key.indexOf('x-ratelimit-') ||
-  ['link', 'server', 'date', 'status'].indexOf(key) !== -1
-
-const itemsOmitter = (value, key) =>
-  key === 'gravatar_id' || key === 'url' || key.slice(-4) === '_url'
-
-const chosenHeaders = function (headers) {
-  const picks = pickBy(headers, headersPicker)
-  picks.timestamp = new Date(picks.date).getTime()
-  picks.timestampDiff = Math.round((picks.timestamp - Date.now()) / 10) / 100
-  picks.timestamp /= 1000
-  picks['x-ratelimit-limit'] = parseInt(picks['x-ratelimit-limit'], 10)
-  picks['x-ratelimit-remaining'] = parseInt(picks['x-ratelimit-remaining'], 10)
-  picks['x-ratelimit-reset'] = parseInt(picks['x-ratelimit-reset'], 10)
-  picks.statusCode = parseInt(picks.status, 10)
-  return picks
-}
-
 const earlyReject = function (query) {
   if (typeof query !== 'object' && typeof query !== 'string') {
     throw new Error('`query` required (string or object)')
   }
-  if (typeof query === 'string') { query = { q: query } }
-  if (!query.q && !query.o) {
+  if (typeof query === 'string') {
+    if (query.slice(0, 4) === 'http') {
+      const f = query.slice(4, 5)
+      let i
+      if (f === ':') { i = 4 } else if (f === 's') { i = 5 }
+      if (i && query.slice(i, i + 3) === '://') { query = { u: query } }
+    }
+    if (!query.u) { query = { q: query } }
+  }
+  if (!query.q && !query.o && !query.u) {
     throw new Error('either `query.q` or `query.o` should be provided and not empty')
   }
   if ([undefined, 'followers', 'repositories', 'joined'].indexOf(query.sort) === -1) {
@@ -113,11 +124,11 @@ const inQuery = function (query) {
   return query
 }
 
-const beginDoQuery = flow(inQuery, rangeQuery.bind(null, 'repos'),
-  rangeQuery.bind(null, 'followers'), rangeQuery.bind(null, 'created'))
+const beginDoQuery = flow(inQuery, partial(rangeQuery, 'repos'),
+  partial(rangeQuery, 'followers'), partial(rangeQuery, 'created'))
 
 const doQuery = function (query) {
-  if (query.q) { return query }
+  if (query.u || query.q) { return query }
   query.q = []
   if (query.o.string) { query.q.push(query.o.string) }
   if (query.o.type) { query.q.push('type:' + query.o.type) }
@@ -144,19 +155,16 @@ const doQuery = function (query) {
 
 const begin = flow(earlyReject, doQuery, notQuery)
 
+const itemsOmitter = (value, key) =>
+  key === 'gravatar_id' || key === 'url' || key.slice(-4) === '_url'
+
 module.exports = function (query, token) {
   try { query = begin(query) } catch (e) { return Promise.reject(e) }
   if (!query.per_page) { query.per_page = 100 }
-  const obj = {
-    token: token,
-    headers: { 'user-agent': userAgent }
-  }
-  const searchUrl = 'search/users?' + qs.stringify(query)
-  return ghGot(searchUrl, obj)
-    .then((result) => {
-      result.body.headers = chosenHeaders(result.headers)
-      return result.body
-    })
+  return got(
+    query.u ? query.u : 'search/users?' + qs.stringify(query),
+    { token: token, headers: { 'user-agent': userAgent } }
+  )
     .then((body) => {
       body.items = body.items.map((i) => omitBy(i, itemsOmitter))
       return body

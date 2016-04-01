@@ -1,14 +1,10 @@
 /*eslint arrow-parens: [2, "as-needed"]*/
 'use strict'
-
 import test from 'ava'
 import fn from './'
 
-const errorString = '`query` required (string or object)'
-
 test('search robin millette', async t => {
   const search = await fn('robin millette')
-  // console.log(JSON.stringify(search, null, ' '))
   t.is(search.total_count, 1)
   t.is(search.items.length, search.total_count)
   t.is(search.items[0].login, 'millette')
@@ -51,6 +47,25 @@ test('search location (and not location)', async t => {
   t.ok(search.headers.link)
   t.true(search.total_count > 5000)
 })
+
+test('search bob, full URL', async t => {
+  const search = await fn('https://api.github.com/search/users?q=bob&per_page=100')
+  t.ok(search.headers.link)
+  t.is(Object.keys(search.headers).length, 10)
+  t.true(search.total_count > 5000)
+})
+
+test('search robin millette, full URL', async t => {
+  const search = await fn('https://api.github.com/search/users?q=robin+millette&per_page=100')
+  t.is(search.total_count, 1)
+  t.is(search.items.length, search.total_count)
+  t.is(search.items[0].login, 'millette')
+  t.is(Object.keys(search.items[0]).length, 5)
+  t.is(Object.keys(search.headers).length, 9)
+  t.notOk(search.headers.link)
+})
+
+const errorString = '`query` required (string or object)'
 
 test('bad sort', async t => await t.throws(fn({ q: 'bob', sort: 'bad' }), '`query.sort` should be one of "followers", "repositories" or "joined"'))
 test('bad order', async t => await t.throws(fn({ q: 'bob', order: 'bad' }), '`query.order` should be one of "asc" or "desc"'))

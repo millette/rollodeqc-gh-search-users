@@ -1,48 +1,79 @@
-# gh-search
-
-> My neat module
-
-
-## TODO
-gh-utils module: ghObj(), ghRatelimit(), etc.
+# rollodeqc-gh-search-users
+> RollodeQc module to search GitHub users.
 
 ## Install
-
 ```
-$ npm install --save gh-search
+$ npm install --save rollodeqc-gh-search-users
 ```
-
 
 ## Usage
-
 ```js
-const ghSearch = require('gh-search');
+const ghSearchUsers = require('rollodeqc-gh-search-users')
 
-ghSearch('unicorns');
-//=> 'unicorns & rainbows'
+ghSearchUsers('unicorns').then((result) => {
+  console.log(JSON.stringify(result, null, ' '))
+})
+//=> {
+  "total_count": 48,
+  "incomplete_results": false,
+  "items": [
+    {
+      "login": "DirtyUnicorns",
+      "id": 10095278,
+      "type": "Organization",
+      "site_admin": false,
+      "score": 29.105461
+    },
+    // ...
+    {
+      "login": "rainbowify",
+      "id": 1377335,
+      "type": "User",
+      "site_admin": false,
+      "score": 5.071583
+    }
+  ],
+  "headers": {
+    "server": "GitHub.com",
+    "date": "Fri, 01 Apr 2016 00:39:43 GMT",
+    "status": "200 OK",
+    "x-ratelimit-limit": 30,
+    "x-ratelimit-remaining": 29,
+    "x-ratelimit-reset": 1459471243,
+    "timestamp": 1459471183,
+    "timestampDiff": 2.92,
+    "statusCode": 200
+  }
+}
 ```
-
 
 ## API
 
-### ghSearch(input, [options])
+### ghSearchUsers(query, [token])
+Search GitHub for users. Returns a promise.
 
-#### input
+#### query
+Type: `string`|`object`
 
-Type: `string`
+`string` values can represent a search query or a complete GitHub API URL
+(beginning with http:// or https://).
+Otherwise see the tests and source code if query is an `object`.
 
-Lorem ipsum.
+#### token
+Type: `string`<br>
+Default: `null`
 
-#### options
+GitHub token for greater rate limits.
+Can be overridden globally with the `GITHUB_TOKEN` environment variable.
 
-##### foo
-
-Type: `boolean`<br>
-Default: `false`
-
-Lorem ipsum.
-
+## Dependencies
+* lodash.flow
+* lodash.omitby
+* lodash.deburr
+* lodash.flatten
+* lodash.uniq
+* lodash.partial
+* rollodeqc-gh-utils
 
 ## License
-
-MIT © [Robin Millette](http://robin.millette.info)
+AGPL-v3 © [Robin Millette](http://robin.millette.info)
