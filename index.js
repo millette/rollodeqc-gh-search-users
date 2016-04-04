@@ -25,14 +25,14 @@ const qs = require('querystring')
 
 // npm
 const flow = require('lodash.flow')
-const omitBy = require('lodash.omitby')
+// const omitBy = require('lodash.omitby')
 const deburr = require('lodash.deburr')
 const flatten = require('lodash.flatten')
 const uniq = require('lodash.uniq')
 const partial = require('lodash.partial')
 
 // own
-const got = require('rollodeqc-gh-utils').got
+const utils = require('rollodeqc-gh-utils')
 
 // data
 const packageJson = require('./package.json')
@@ -155,18 +155,22 @@ const doQuery = function (query) {
 
 const begin = flow(earlyReject, doQuery, notQuery)
 
+/*
 const itemsOmitter = (value, key) =>
   key === 'gravatar_id' || key === 'url' || key.slice(-4) === '_url'
+
+const chosenFields = (i) => omitBy(i, itemsOmitter)
+*/
 
 module.exports = function (query, token) {
   try { query = begin(query) } catch (e) { return Promise.reject(e) }
   if (!query.per_page) { query.per_page = 100 }
-  return got(
+  return utils.got(
     query.u ? query.u : 'search/users?' + qs.stringify(query),
     { token: token, headers: { 'user-agent': userAgent } }
   )
     .then((body) => {
-      body.items = body.items.map((i) => omitBy(i, itemsOmitter))
+      body.items = body.items.map((i) => utils.chosenFields(i))
       return body
     })
 }

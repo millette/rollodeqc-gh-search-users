@@ -68,7 +68,6 @@ Can be overridden globally with the `GITHUB_TOKEN` environment variable.
 
 ## Dependencies
 * lodash.flow
-* lodash.omitby
 * lodash.deburr
 * lodash.flatten
 * lodash.uniq
