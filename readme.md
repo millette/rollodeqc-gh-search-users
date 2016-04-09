@@ -1,3 +1,4 @@
+# rollodeqc-gh-search-users [![Build Status](https://travis-ci.org/millette/rollodeqc-gh-search-users.svg?branch=master)](https://travis-ci.org/millette/rollodeqc-gh-search-users)
 # rollodeqc-gh-search-users
 > RollodeQc module to search GitHub users.
 
