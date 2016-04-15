@@ -1,5 +1,4 @@
-# rollodeqc-gh-search-users [![Build Status](https://travis-ci.org/millette/rollodeqc-gh-search-users.svg?branch=master)](https://travis-ci.org/millette/rollodeqc-gh-search-users)
-# rollodeqc-gh-search-users
+# rollodeqc-gh-search-users [![Build Status](https://travis-ci.org/millette/rollodeqc-gh-search-users.svg?branch=master)](https://travis-ci.org/millette/rollodeqc-gh-search-users) [![Coverage Status](https://coveralls.io/repos/github/millette/rollodeqc-gh-search-users/badge.svg?branch=master)](https://coveralls.io/github/millette/rollodeqc-gh-search-users?branch=master)
 > RollodeQc module to search GitHub users.
 
 ## Install
