@@ -1,6 +1,6 @@
 {
   "name": "rollodeqc-gh-search-users",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "RoLLodeQc module to search GitHub users.",
   "license": "AGPL-3.0",
   "repository": "millette/rollodeqc-gh-search-users",
@@ -47,4 +47,3 @@
     "parser": "babel-eslint"
   }
 }
-
