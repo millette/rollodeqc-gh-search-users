@@ -37,7 +37,7 @@
     "rollodeqc-gh-utils": "^0.3.2"
   },
   "devDependencies": {
-    "ava": "^0.12.0",
+    "ava": "^0.15.2",
     "babel-eslint": "^6.1.0",
     "coveralls": "^2.11.9",
     "nyc": "^6.6.1",

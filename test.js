@@ -8,7 +8,7 @@ test.serial('search robin millette with created', async t => {
   t.is(search.total_count, 0)
   t.is(search.items.length, search.total_count)
   t.is(Object.keys(search.headers).length, 9)
-  t.notOk(search.headers.link)
+  t.falsy(search.headers.link)
 })
 
 test.serial('search robin millette with language', async t => {
@@ -18,7 +18,7 @@ test.serial('search robin millette with language', async t => {
   t.is(search.items[0].login, 'millette')
   t.is(Object.keys(search.items[0]).length, 4)
   t.is(Object.keys(search.headers).length, 9)
-  t.notOk(search.headers.link)
+  t.falsy(search.headers.link)
 })
 
 test.serial('search robin millette with languages', async t => {
@@ -28,12 +28,12 @@ test.serial('search robin millette with languages', async t => {
   t.is(search.items[0].login, 'millette')
   t.is(Object.keys(search.items[0]).length, 4)
   t.is(Object.keys(search.headers).length, 9)
-  t.notOk(search.headers.link)
+  t.falsy(search.headers.link)
 })
 
 test.serial('search bob, multiple pages', async t => {
   const search = await fn('bob')
-  t.ok(search.headers.link)
+  t.truthy(search.headers.link)
   t.is(Object.keys(search.headers).length, 10)
   t.true(search.total_count > 5000)
 })
@@ -46,14 +46,14 @@ test.serial('search object (org, in email)', async t => {
 
 test.serial('search object (user, in all', async t => {
   const search = await fn({ o: { string: 'bob', type: 'user', in: 'all' } })
-  t.ok(search.headers.link)
+  t.truthy(search.headers.link)
   t.true(search.total_count > 10000)
   t.is(search.items[0].type, 'User')
 })
 
 test.serial('search location', async t => {
   const search = await fn({ o: { location: ['mtl', 'Montréal'] } })
-  t.ok(search.headers.link)
+  t.truthy(search.headers.link)
   t.true(search.total_count > 7000)
 })
 
@@ -67,13 +67,13 @@ test.serial('search location (and not location)', async t => {
     o: { location: ['mtl', 'Montréal'] },
     n: { location: ['qc', 'Québec'] }
   })
-  t.ok(search.headers.link)
+  t.truthy(search.headers.link)
   t.true(search.total_count > 5000)
 })
 
 test.serial('search bob, full URL', async t => {
   const search = await fn('https://api.github.com/search/users?q=bob&per_page=100')
-  t.ok(search.headers.link)
+  t.truthy(search.headers.link)
   t.is(Object.keys(search.headers).length, 10)
   t.true(search.total_count > 5000)
 })
@@ -85,7 +85,7 @@ test.skip('search robin millette, full URL', async t => {
   t.is(search.items[0].login, 'millette')
   t.is(Object.keys(search.items[0]).length, 4)
   t.is(Object.keys(search.headers).length, 9)
-  t.notOk(search.headers.link)
+  t.falsy(search.headers.link)
 })
 
 const errorString = '`query` required (string or object)'
