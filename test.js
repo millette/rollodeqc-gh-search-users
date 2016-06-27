@@ -3,7 +3,7 @@
 import test from 'ava'
 import fn from './'
 
-test('search robin millette with created', async t => {
+test.serial('search robin millette with created', async t => {
   const search = await fn({ o: { string: 'robin millette', created: '>=2016-03-25' } })
   t.is(search.total_count, 0)
   t.is(search.items.length, search.total_count)
@@ -11,7 +11,7 @@ test('search robin millette with created', async t => {
   t.notOk(search.headers.link)
 })
 
-test('search robin millette with language', async t => {
+test.serial('search robin millette with language', async t => {
   const search = await fn({ o: { string: 'robin millette', language: 'javascript' } })
   t.is(search.total_count, 1)
   t.is(search.items.length, search.total_count)
@@ -21,7 +21,7 @@ test('search robin millette with language', async t => {
   t.notOk(search.headers.link)
 })
 
-test('search robin millette with languages', async t => {
+test.serial('search robin millette with languages', async t => {
   const search = await fn({ o: { string: 'robin millette', language: ['javascript', 'c++'] } })
   t.is(search.total_count, 1)
   t.is(search.items.length, search.total_count)
@@ -31,38 +31,38 @@ test('search robin millette with languages', async t => {
   t.notOk(search.headers.link)
 })
 
-test('search bob, multiple pages', async t => {
+test.serial('search bob, multiple pages', async t => {
   const search = await fn('bob')
   t.ok(search.headers.link)
   t.is(Object.keys(search.headers).length, 10)
   t.true(search.total_count > 5000)
 })
 
-test('search object (org, in email)', async t => {
+test.serial('search object (org, in email)', async t => {
   const search = await fn({ o: { string: 'bob', type: 'org', in: 'email' } })
   t.true(search.total_count < 50)
   t.is(search.items[0].type, 'Organization')
 })
 
-test('search object (user, in all', async t => {
+test.serial('search object (user, in all', async t => {
   const search = await fn({ o: { string: 'bob', type: 'user', in: 'all' } })
   t.ok(search.headers.link)
   t.true(search.total_count > 10000)
   t.is(search.items[0].type, 'User')
 })
 
-test('search location', async t => {
+test.serial('search location', async t => {
   const search = await fn({ o: { location: ['mtl', 'Montréal'] } })
   t.ok(search.headers.link)
   t.true(search.total_count > 7000)
 })
 
-test('search location #2', async t => {
+test.serial('search location #2', async t => {
   const search = await fn({ o: { location: 'Rawdon' } })
   t.true(search.total_count < 10)
 })
 
-test('search location (and not location)', async t => {
+test.serial('search location (and not location)', async t => {
   const search = await fn({
     o: { location: ['mtl', 'Montréal'] },
     n: { location: ['qc', 'Québec'] }
@@ -71,14 +71,14 @@ test('search location (and not location)', async t => {
   t.true(search.total_count > 5000)
 })
 
-test('search bob, full URL', async t => {
+test.serial('search bob, full URL', async t => {
   const search = await fn('https://api.github.com/search/users?q=bob&per_page=100')
   t.ok(search.headers.link)
   t.is(Object.keys(search.headers).length, 10)
   t.true(search.total_count > 5000)
 })
 
-test('search robin millette, full URL', async t => {
+test.serial('search robin millette, full URL', async t => {
   const search = await fn('https://api.github.com/search/users?q=robin+millette&per_page=100')
   t.is(search.total_count, 1)
   t.is(search.items.length, search.total_count)
