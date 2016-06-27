@@ -34,13 +34,13 @@
     "lodash.flow": "^3.3.0",
     "lodash.partial": "^4.1.4",
     "lodash.uniq": "^4.3.0",
-    "rollodeqc-gh-utils": "^0.3.0"
+    "rollodeqc-gh-utils": "^0.3.2"
   },
   "devDependencies": {
     "ava": "^0.12.0",
-    "babel-eslint": "^6.0.4",
+    "babel-eslint": "^6.1.0",
     "coveralls": "^2.11.9",
-    "nyc": "^6.4.4",
+    "nyc": "^6.6.1",
     "standard": "^7.1.2"
   },
   "standard": {
