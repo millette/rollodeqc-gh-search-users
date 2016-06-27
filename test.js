@@ -78,7 +78,7 @@ test.serial('search bob, full URL', async t => {
   t.true(search.total_count > 5000)
 })
 
-test.serial('search robin millette, full URL', async t => {
+test.skip('search robin millette, full URL', async t => {
   const search = await fn('https://api.github.com/search/users?q=robin+millette&per_page=100')
   t.is(search.total_count, 1)
   t.is(search.items.length, search.total_count)
