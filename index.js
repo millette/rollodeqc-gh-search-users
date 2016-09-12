@@ -165,10 +165,9 @@ const chosenFields = (i) => omitBy(i, itemsOmitter)
 module.exports = function (query, token) {
   try { query = begin(query) } catch (e) { return Promise.reject(e) }
   if (!query.per_page) { query.per_page = 100 }
-  return utils.got(
-    query.u ? query.u : 'search/users?' + qs.stringify(query),
-    { token: token, headers: { 'user-agent': userAgent } }
-  )
+  const opts = { headers: { 'user-agent': userAgent } }
+  if (token) { opts.token = token }
+  return utils.got(query.u ? query.u : 'search/users?' + qs.stringify(query), opts)
     .then((body) => {
       body.items = body.items.map((i) => utils.chosenFields(i))
       return body
