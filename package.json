@@ -35,16 +35,12 @@
     "lodash.flow": "^3.5.0",
     "lodash.partial": "^4.2.1",
     "lodash.uniq": "^4.5.0",
-    "rollodeqc-gh-utils": "^0.3.4"
+    "rollodeqc-gh-utils": "^0.4.0"
   },
   "devDependencies": {
     "ava": "^0.19.1",
-    "babel-eslint": "^7.2.3",
     "coveralls": "^2.13.1",
     "nyc": "^11.0.2",
-    "standard": "^10.0.2"
-  },
-  "standard": {
-    "parser": "babel-eslint"
+    "standard": "^11.0.1"
   }
 }
