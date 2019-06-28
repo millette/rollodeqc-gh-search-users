@@ -35,7 +35,7 @@
     "lodash.flow": "^3.5.0",
     "lodash.partial": "^4.2.1",
     "lodash.uniq": "^4.5.0",
-    "rollodeqc-gh-utils": "^0.4.0"
+    "rollodeqc-gh-utils": "^0.4.1"
   },
   "devDependencies": {
     "ava": "^2.1.0",
