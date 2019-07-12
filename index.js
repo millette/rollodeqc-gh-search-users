@@ -102,7 +102,7 @@ const rangeQuery = function (field, query) {
 const inQuery = function (query) {
   if (!query.o.in) { return query }
 
-  let good = ['email', 'login', 'fullname']
+  const good = ['email', 'login', 'fullname']
   if (typeof query.o.in === 'string') {
     query.o.in = query.o.in === 'all' ? good.slice() : [query.o.in]
   }
