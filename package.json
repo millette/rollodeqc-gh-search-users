@@ -10,7 +10,7 @@
     "url": "http://robin.millette.info"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10.16.0"
   },
   "scripts": {
     "lint": "standard",
@@ -35,7 +35,7 @@
     "lodash.flow": "^3.5.0",
     "lodash.partial": "^4.2.1",
     "lodash.uniq": "^4.5.0",
-    "rollodeqc-gh-utils": "^0.4.1"
+    "rollodeqc-gh-utils": "^1.0.0"
   },
   "devDependencies": {
     "ava": "^2.2.0",
