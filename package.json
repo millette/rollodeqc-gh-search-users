@@ -38,9 +38,9 @@
     "rollodeqc-gh-utils": "^1.0.0"
   },
   "devDependencies": {
-    "ava": "^2.2.0",
-    "coveralls": "^3.0.5",
+    "ava": "^2.3.0",
+    "coveralls": "^3.0.6",
     "nyc": "^14.1.1",
-    "standard": "^13.0.1"
+    "standard": "^14.0.2"
   }
 }
