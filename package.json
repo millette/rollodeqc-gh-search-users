@@ -1,6 +1,6 @@
 {
   "name": "rollodeqc-gh-search-users",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "RoLLodeQc module to search GitHub users.",
   "license": "AGPL-3.0",
   "repository": "millette/rollodeqc-gh-search-users",
